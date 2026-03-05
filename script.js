@@ -1,7 +1,7 @@
 document.addEventListener('DOMContentLoaded', () => {
     // Navbar Scroll Effect
     const navbar = document.querySelector('.navbar');
-    
+
     window.addEventListener('scroll', () => {
         if (window.scrollY > 50) {
             navbar.classList.add('scrolled');
@@ -13,12 +13,19 @@ document.addEventListener('DOMContentLoaded', () => {
     // Mobile Menu Toggle
     const mobileBtn = document.querySelector('.mobile-menu-btn');
     const navLinks = document.querySelector('.nav-links');
-    
-    // In a real app we would add a full screen mobile menu. 
-    // For now we'll just toggle a simple class if needed.
+    const navItems = document.querySelectorAll('.nav-links a');
+
     mobileBtn.addEventListener('click', () => {
-        // Toggle mobile menu implementation easily goes here
-        alert('Mobile menu opening...');
+        mobileBtn.classList.toggle('active');
+        navLinks.classList.toggle('active');
+    });
+
+    // Close mobile menu when a link is clicked
+    navItems.forEach(item => {
+        item.addEventListener('click', () => {
+            mobileBtn.classList.remove('active');
+            navLinks.classList.remove('active');
+        });
     });
 
     // Intersection Observer for Scroll Animations
@@ -39,7 +46,7 @@ document.addEventListener('DOMContentLoaded', () => {
 
     // Get all animated elements
     const animatedElements = document.querySelectorAll('.fade-in-up, .slide-in-left, .slide-in-right');
-    
+
     // Observe each element
     animatedElements.forEach(el => {
         observer.observe(el);
@@ -50,13 +57,13 @@ document.addEventListener('DOMContentLoaded', () => {
         anchor.addEventListener('click', function (e) {
             e.preventDefault();
             const targetId = this.getAttribute('href');
-            if(targetId === '#') return;
-            
+            if (targetId === '#') return;
+
             const targetElement = document.querySelector(targetId);
-            if(targetElement) {
+            if (targetElement) {
                 const navHeight = navbar.offsetHeight;
                 const targetPosition = targetElement.getBoundingClientRect().top + window.scrollY - navHeight;
-                
+
                 window.scrollTo({
                     top: targetPosition,
                     behavior: 'smooth'
